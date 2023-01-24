@@ -3,20 +3,22 @@ package com.ias.CleanArchitecture.domain.model.course.dto;
 import com.ias.CleanArchitecture.domain.model.course.Course;
 import com.ias.CleanArchitecture.domain.model.course.CourseId;
 import com.ias.CleanArchitecture.domain.model.course.CourseName;
+import com.ias.CleanArchitecture.domain.model.student.Student;
 import com.ias.CleanArchitecture.domain.model.student.dto.StudentDTO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CourseDTO {
     private Long id;
     private String name;
 
-    private List<StudentDTO> studentList;
 
-    public CourseDTO(Long id, String name, List<StudentDTO> studentList) {
+    public CourseDTO(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.studentList = studentList;
     }
 
     public CourseDTO(Course course) {
@@ -25,10 +27,11 @@ public class CourseDTO {
     }
 
     public static Course toCourse(CourseDTO courseDTO){
-        return new Course(
-                new CourseId(courseDTO.getId()),
-                new CourseName(courseDTO.getName())
-        );
+            return new Course(
+                    new CourseId(courseDTO.getId()),
+                    new CourseName(courseDTO.getName())
+            );
+
     }
 
     public Long getId() {
@@ -47,11 +50,4 @@ public class CourseDTO {
         this.name = name;
     }
 
-    public List<StudentDTO> getStudentList() {
-        return studentList;
-    }
-
-    public void setStudentList(List<StudentDTO> studentList) {
-        this.studentList = studentList;
-    }
 }

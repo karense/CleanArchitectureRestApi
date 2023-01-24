@@ -6,6 +6,7 @@ import com.ias.CleanArchitecture.infraestructure.adapters.jpa.entity.CourseDBO;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,7 @@ public class CourseRepositoryAdapter implements ICourseRepository {
 
     @Override
     public List<Course> courseGetAll() {
+        List<CourseDBO> listDBO =  repository.findAll();
         List<Course> list = repository.findAll().stream().map(CourseDBO::toCourse).collect(Collectors.toList());
         return list;
     }
@@ -34,6 +36,9 @@ public class CourseRepositoryAdapter implements ICourseRepository {
     @Override
     public Course courseUpdate(Course course) {
         CourseDBO toCourseDBO = new CourseDBO(course);
+        Optional<CourseDBO> courseDBO = repository.findById(toCourseDBO.getId());
+        if (courseDBO.isEmpty()) throw new NoSuchElementException("El curso que intenta actualizar no existe.") ;
+
         Course toCourse = CourseDBO.toCourse(repository.save(toCourseDBO));
         return toCourse;
     }
@@ -42,9 +47,7 @@ public class CourseRepositoryAdapter implements ICourseRepository {
     public Course courseById(long id) {
         Optional<CourseDBO> value = repository.findById(id);
 
-        if(value.isEmpty()){
-
-        }
+        if(value.isEmpty()) throw new NoSuchElementException("El curso con ");
         return CourseDBO.toCourse(value.get());
     }
 }

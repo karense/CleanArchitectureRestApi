@@ -24,6 +24,7 @@ public class StudentDTO {
         this.name = student.getName().getValue();
         this.phone = student.getPhone().getValue();
         this.email = student.getEmail().getValue();
+        this.course = new CourseDTO(student.getCourse());
     }
 
     public static Student toStudent(StudentDTO studentDTO){
@@ -31,8 +32,8 @@ public class StudentDTO {
                new StudentId(studentDTO.getId()),
                new StudentName(studentDTO.getName()),
                new StudentPhone(studentDTO.getPhone()),
-               new StudentEmail(studentDTO.getEmail())
-       );
+               new StudentEmail(studentDTO.getEmail()),
+               CourseDTO.toCourse(studentDTO.getCourse()));
     }
 
     public CourseDTO getCourse() {

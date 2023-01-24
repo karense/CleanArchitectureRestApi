@@ -6,7 +6,10 @@ import com.ias.CleanArchitecture.domain.model.student.dto.StudentDTO;
 import java.util.List;
 
 public interface IStudentRepository {
-    public Student studentSave(Student student);
-    public Student update(Student student);
-    public List<Student> getAll();
+     Student studentSave(Student student);
+     Student update(Student student);
+     List<Student> getAll();
+
+     List<Student> getByCourse(Long id);
+
 }
