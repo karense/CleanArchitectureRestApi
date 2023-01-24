@@ -1,6 +1,7 @@
 package com.ias.CleanArchitecture.domain.model.student.dto;
 
 import com.ias.CleanArchitecture.domain.model.course.dto.CourseDTO;
+import com.ias.CleanArchitecture.domain.model.student.*;
 
 public class StudentDTO {
     private Integer id;
@@ -16,6 +17,22 @@ public class StudentDTO {
         this.phone = phone;
         this.email = email;
         this.course = course;
+    }
+
+    public StudentDTO(Student student) {
+        this.id = student.getId().getValue();
+        this.name = student.getName().getValue();
+        this.phone = student.getPhone().getValue();
+        this.email = student.getEmail().getValue();
+    }
+
+    public static Student toStudent(StudentDTO studentDTO){
+       return new Student(
+               new StudentId(studentDTO.getId()),
+               new StudentName(studentDTO.getName()),
+               new StudentPhone(studentDTO.getPhone()),
+               new StudentEmail(studentDTO.getEmail())
+       );
     }
 
     public CourseDTO getCourse() {

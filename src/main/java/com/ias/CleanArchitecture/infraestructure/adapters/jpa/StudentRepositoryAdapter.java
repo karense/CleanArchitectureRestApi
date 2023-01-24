@@ -6,6 +6,9 @@ import com.ias.CleanArchitecture.domain.model.student.dto.StudentDTO;
 import com.ias.CleanArchitecture.infraestructure.adapters.jpa.entity.StudentDBO;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Repository
 public class StudentRepositoryAdapter implements IStudentRepository {
 
@@ -20,5 +23,18 @@ public class StudentRepositoryAdapter implements IStudentRepository {
         StudentDBO toDBO = new StudentDBO(student);
         Student toStudent = StudentDBO.toStudent(repository.save(toDBO));
         return toStudent;
+    }
+
+    @Override
+    public Student update(Student student) {
+        StudentDBO toDBO = new StudentDBO(student);
+        Student toStudent = StudentDBO.toStudent(repository.save(toDBO));
+        return toStudent;
+    }
+
+    @Override
+    public List<Student> getAll() {
+        List<Student> list = repository.findAll().stream().map(StudentDBO::toStudent).collect(Collectors.toList());
+        return list;
     }
 }
