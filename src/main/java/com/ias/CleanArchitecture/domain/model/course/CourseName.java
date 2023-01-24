@@ -2,13 +2,13 @@ package com.ias.CleanArchitecture.domain.model.course;
 
 public class CourseName {
 
-    private final String name;
+    private final String value;
 
-    public CourseName(String name) {
-        this.name = name;
+    public CourseName(String value) {
+        this.value = value;
     }
 
-    public String getName() {
-        return name;
+    public String getValue() {
+        return value;
     }
 }

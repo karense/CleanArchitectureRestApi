@@ -1,16 +1,29 @@
 package com.ias.CleanArchitecture.domain.model.student.dto;
 
+import com.ias.CleanArchitecture.domain.model.course.dto.CourseDTO;
+
 public class StudentDTO {
     private Integer id;
     private String name;
     private String phone;
     private String email;
 
-    public StudentDTO(Integer id, String name, String phone, String email) {
+    private CourseDTO course;
+
+    public StudentDTO(Integer id, String name, String phone, String email, CourseDTO course) {
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.course = course;
+    }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
     }
 
     public Integer getId() {
