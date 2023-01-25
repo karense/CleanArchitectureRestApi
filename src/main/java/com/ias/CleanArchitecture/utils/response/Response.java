@@ -1,8 +1,9 @@
 package com.ias.CleanArchitecture.utils.response;
 
 public class Response {
-    private String message;
     private Integer status;
+    private String message;
+
 
     public Response(String message, Integer status) {
         this.message = message;

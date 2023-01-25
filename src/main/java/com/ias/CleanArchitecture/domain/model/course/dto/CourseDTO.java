@@ -5,6 +5,8 @@ import com.ias.CleanArchitecture.domain.model.course.CourseId;
 import com.ias.CleanArchitecture.domain.model.course.CourseName;
 import com.ias.CleanArchitecture.domain.model.student.Student;
 import com.ias.CleanArchitecture.domain.model.student.dto.StudentDTO;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.stream.Collectors;
 
 public class CourseDTO {
     private Long id;
+    @NotEmpty(message = "[name] es requerido.")
     private String name;
 
 

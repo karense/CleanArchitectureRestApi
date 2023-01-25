@@ -5,8 +5,9 @@ import org.springframework.validation.BindingResult;
 import java.util.List;
 
 public class ResponseError {
-    private String message;
     private Integer status;
+    private String message;
+
 
     private List<String> errors;
 

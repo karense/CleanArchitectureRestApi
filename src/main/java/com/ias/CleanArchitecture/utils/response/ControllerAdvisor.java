@@ -24,11 +24,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return buildResponse(ex, HttpStatus.PRECONDITION_FAILED);
     }
 
+    @ExceptionHandler
     private ResponseEntity<ResponseError> handleException(InvalidDataException e){
+
         HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
-        List<String> errors = e.getErrors().getFieldErrors().stream().map(FieldError::getDefaultMessage)
+        List<String> errors = e.getResult().getFieldErrors().stream().map(FieldError::getDefaultMessage)
                 .collect(Collectors.toList());
-        return buildResponse(e,httpStatus, errors);
+        return buildResponse(new Exception("La data enviada no es valida."),httpStatus, errors);
     }
 
     private ResponseEntity<Response> buildResponse(Exception e, HttpStatus status){

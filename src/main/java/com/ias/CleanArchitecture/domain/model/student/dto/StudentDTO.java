@@ -2,13 +2,19 @@ package com.ias.CleanArchitecture.domain.model.student.dto;
 
 import com.ias.CleanArchitecture.domain.model.course.dto.CourseDTO;
 import com.ias.CleanArchitecture.domain.model.student.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 public class StudentDTO {
     private Integer id;
+    @NotEmpty(message = "[name] es requerido.")
     private String name;
     private String phone;
+    @Email(message = "[email] no es un email valido.")
     private String email;
 
+    @NotBlank(message = "[course_id] es requerido.")
     private CourseDTO course;
 
     public StudentDTO(Integer id, String name, String phone, String email, CourseDTO course) {

@@ -2,9 +2,12 @@ package com.ias.CleanArchitecture.infraestructure.entrypoints;
 
 import com.ias.CleanArchitecture.domain.model.course.dto.CourseDTO;
 import com.ias.CleanArchitecture.domain.usecase.CourseUseCase;
+import com.ias.CleanArchitecture.utils.response.InvalidDataException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,11 @@ public class CourseEntryPoint {
     private final CourseUseCase courseUseCase;
 
     @PostMapping
-    public ResponseEntity<?> saveCourse(@RequestBody CourseDTO courseDTO){
+    public ResponseEntity<?> saveCourse(@Valid @RequestBody CourseDTO courseDTO, BindingResult errors){
+        if (errors.hasErrors()) {
+            throw new InvalidDataException(errors);
+        }
+
         return new ResponseEntity<>(courseUseCase.saveCourse(courseDTO), HttpStatus.CREATED);
     }
 

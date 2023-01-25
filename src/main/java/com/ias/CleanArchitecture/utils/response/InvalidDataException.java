@@ -3,19 +3,18 @@ package com.ias.CleanArchitecture.utils.response;
 import org.springframework.validation.BindingResult;
 
 public class InvalidDataException extends RuntimeException{
-    private final BindingResult errors;
-
-    public InvalidDataException(BindingResult errors) {
+    private final transient BindingResult result;
+    public InvalidDataException(BindingResult result) {
         super();
-        this.errors = errors;
+        this.result = result;
     }
 
-    public InvalidDataException(String message, BindingResult errors) {
+    public InvalidDataException(String message, BindingResult result) {
         super(message);
-        this.errors = errors;
+        this.result = result;
     }
 
-    public BindingResult getErrors() {
-        return errors;
+    public BindingResult getResult() {
+        return result;
     }
 }

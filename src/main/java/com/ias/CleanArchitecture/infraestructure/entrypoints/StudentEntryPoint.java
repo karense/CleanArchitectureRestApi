@@ -3,9 +3,12 @@ package com.ias.CleanArchitecture.infraestructure.entrypoints;
 import com.ias.CleanArchitecture.domain.model.course.dto.CourseDTO;
 import com.ias.CleanArchitecture.domain.model.student.dto.StudentDTO;
 import com.ias.CleanArchitecture.domain.usecase.StudentUseCase;
+import com.ias.CleanArchitecture.utils.response.InvalidDataException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +21,8 @@ public class StudentEntryPoint {
     private final StudentUseCase studentUseCase;
 
     @PostMapping
-    public ResponseEntity<?> save(@RequestBody StudentDTO studentDTO){
+    public ResponseEntity<?> save(@Valid @RequestBody StudentDTO studentDTO, BindingResult errors){
+        if (errors.hasErrors()) throw new InvalidDataException(errors);
         return new ResponseEntity<>(studentUseCase.saveStudent(studentDTO), HttpStatus.CREATED);
     }
 
