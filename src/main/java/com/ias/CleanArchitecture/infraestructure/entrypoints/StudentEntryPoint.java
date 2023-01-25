@@ -29,6 +29,12 @@ public class StudentEntryPoint {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getById(@PathVariable(name = "id") Integer id){
+        StudentDTO student = studentUseCase.getById(id);
+        return new ResponseEntity<>(student, HttpStatus.OK);
+    }
+
     @GetMapping("/course/{id}")
     public ResponseEntity<?> getByCourse(@PathVariable(name = "id") Long id){
         List<StudentDTO> list = studentUseCase.getByCourse(id);

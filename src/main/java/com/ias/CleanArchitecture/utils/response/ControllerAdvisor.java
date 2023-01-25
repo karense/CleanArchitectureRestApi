@@ -15,4 +15,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     private ResponseEntity<?> handleException(NoSuchElementException ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler
+    private ResponseEntity<?> handleException(StudentListEmptyException ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.PRECONDITION_FAILED);
+    }
 }

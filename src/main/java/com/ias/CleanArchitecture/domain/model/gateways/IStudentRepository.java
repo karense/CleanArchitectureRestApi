@@ -12,4 +12,6 @@ public interface IStudentRepository {
 
      List<Student> getByCourse(Long id);
 
+     Student getById(Integer id);
+
 }

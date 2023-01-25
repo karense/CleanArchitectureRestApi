@@ -34,4 +34,8 @@ public class StudentUseCase {
     public List<StudentDTO> getByCourse(Long idCourse){
         return repository.getByCourse(idCourse).stream().map(StudentDTO::new).collect(Collectors.toList());
     }
+
+    public StudentDTO getById(Integer id){
+        return new StudentDTO(repository.getById(id));
+    }
 }

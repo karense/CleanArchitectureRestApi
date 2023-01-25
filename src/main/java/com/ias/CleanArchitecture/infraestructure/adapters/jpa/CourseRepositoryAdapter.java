@@ -44,10 +44,9 @@ public class CourseRepositoryAdapter implements ICourseRepository {
     }
 
     @Override
-    public Course courseById(long id) {
+    public Course courseById(Long id) {
         Optional<CourseDBO> value = repository.findById(id);
-
-        if(value.isEmpty()) throw new NoSuchElementException("El curso con ");
+        if(value.isEmpty()) throw new NoSuchElementException("El curso con id = "+id+" no existe.");
         return CourseDBO.toCourse(value.get());
     }
 }

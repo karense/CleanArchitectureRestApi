@@ -26,6 +26,10 @@ public class CourseUseCase {
         return list;
     }
 
+    public CourseDTO getById(Long id){
+        return new CourseDTO(repository.courseById(id));
+    }
+
     public CourseDTO update(CourseDTO courseDTO){
         CourseDTO toDTO = new CourseDTO(repository.courseUpdate(CourseDTO.toCourse(courseDTO)));
         return toDTO;
