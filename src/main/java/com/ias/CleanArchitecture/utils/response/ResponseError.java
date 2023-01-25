@@ -1,13 +1,11 @@
 package com.ias.CleanArchitecture.utils.response;
 
-import org.springframework.validation.BindingResult;
 
 import java.util.List;
 
 public class ResponseError {
     private Integer status;
     private String message;
-
 
     private List<String> errors;
 
