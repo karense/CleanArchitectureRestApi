@@ -16,7 +16,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     private ResponseEntity<Response> handleException(NoSuchElementException ex){
-        return buildResponse(ex, HttpStatus.NOT_FOUND);
+        return buildResponse(ex, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler
@@ -31,6 +31,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         List<String> errors = e.getResult().getFieldErrors().stream().map(FieldError::getDefaultMessage)
                 .collect(Collectors.toList());
         return buildResponse(new Exception("La data enviada no es valida."),httpStatus, errors);
+    }
+
+    @ExceptionHandler
+    private ResponseEntity<Response> handleException(IllegalArgumentException e){
+
+        HttpStatus httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+
+        return buildResponse(e,httpStatus);
     }
 
     private ResponseEntity<Response> buildResponse(Exception e, HttpStatus status){

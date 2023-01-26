@@ -39,7 +39,7 @@ public class CourseRepositoryAdapter implements ICourseRepository {
     public Course courseUpdate(Course course) {
         CourseDBO toCourseDBO = new CourseDBO(course);
         Optional<CourseDBO> courseDBO = repository.findById(toCourseDBO.getId());
-        if (courseDBO.isEmpty()) throw new NoSuchElementException("El curso que intenta actualizar no existe.") ;
+        if (courseDBO.isEmpty()) throw new IllegalArgumentException("El curso que intenta actualizar no existe.") ;
 
         Course toCourse = CourseDBO.toCourse(repository.save(toCourseDBO));
         return toCourse;

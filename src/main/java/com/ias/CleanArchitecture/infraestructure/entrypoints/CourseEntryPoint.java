@@ -21,15 +21,15 @@ public class CourseEntryPoint {
 
     @PostMapping
     public ResponseEntity<?> saveCourse(@Valid @RequestBody CourseDTO courseDTO, BindingResult errors){
-        if (errors.hasErrors()) {
+      /*  if (errors.hasErrors()) {
             throw new InvalidDataException(errors);
-        }
-
+        }*/
         return new ResponseEntity<>(courseUseCase.saveCourse(courseDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable(name = "id") Long id){
+
         CourseDTO courseDTO = courseUseCase.getById(id);
         return new ResponseEntity<>(courseDTO, HttpStatus.OK);
     }
@@ -44,7 +44,7 @@ public class CourseEntryPoint {
 
 
     @PutMapping
-    public CourseDTO updateCourse(@RequestBody CourseDTO courseDTO){
-        return courseUseCase.update(courseDTO);
+    public ResponseEntity<?> updateCourse(@RequestBody CourseDTO courseDTO){
+        return new ResponseEntity<>(courseUseCase.update(courseDTO), HttpStatus.OK);
     }
 }
