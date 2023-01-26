@@ -17,6 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @DataJpaTest
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -39,5 +42,42 @@ public class CourseRepositoryAdapterTest {
         Course courseDBO =courseRepositoryAdapter.courseSave(course);
 
         Assertions.assertEquals("Name", courseDBO.getName().getValue());
+    }
+
+    @Test
+    void getAll(){
+
+        Course course = new Course(new CourseId(1l), new CourseName("Name"));
+
+        courseRepositoryAdapter.courseSave(course);
+
+        List<Course> courseList = courseRepositoryAdapter.courseGetAll();
+
+        Assertions.assertEquals("Name", courseList.get(0).getName().getValue());
+
+    }
+
+    @Test
+    void getById(){
+        Course course = new Course(new CourseId(1l), new CourseName("Name"));
+
+        courseRepositoryAdapter.courseSave(course);
+
+        Course courseById = courseRepositoryAdapter.courseById(course.getId().getValue());
+
+        Assertions.assertEquals("Name", courseById.getName().getValue());
+
+    }
+
+    @Test
+    void update(){
+        Course course = new Course(new CourseId(1l), new CourseName("Name"));
+        Course courseUpdated = new Course(new CourseId(1l), new CourseName("Math"));
+
+        courseRepositoryAdapter.courseSave(course);
+
+        Course courseUpdate = courseRepositoryAdapter.courseUpdate(courseUpdated);
+
+        Assertions.assertEquals("Math", courseUpdate.getName().getValue());
     }
 }
